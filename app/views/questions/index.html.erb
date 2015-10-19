@@ -4,12 +4,7 @@
   <!-- <hr> -->
   <%if @questions.any? %>
   <% @questions.each do |question|%>
-  <%= question.question %> <br> by <i><%= question.user.name%></i> <br> <small><%= time_ago_in_words(question.created_at) %></small> ago
-    <% if current_user == question.user %>
-      <%= link_to 'delete question', question_path(question),
-                                    :data => {:confirm => "are you sure?",
-                                          :method => "delete"}%>
-    <% end %>
+  <%= link_to question.question, question_path(question) %> <br> by <i><%= question.user.name%></i> <br> <small><%= time_ago_in_words(question.created_at) %></small> ago
   <%end%>
   <%else%>
   <p>
@@ -20,8 +15,6 @@
     <p>
       Welcome, <b><%=  current_user.name %></b><br>
 
-      <hr>
-      <%=render "form"%>
       <hr>
     </p>
     <%= link_to 'log out', log_out_path %>
