@@ -5,11 +5,22 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+  <%= render '/layouts/navbar'%>
+
 </head>
 <body>
-<%= flash[:alert] %>
-<%= flash[:notice] %>
-<%= yield %>
+  <div class="container">
 
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <%= flash[:alert] %>
+      <%= flash[:notice] %>
+      <%= yield %>
+</div>
+
+
+
+</div> <!-- /container -->
 </body>
 </html>

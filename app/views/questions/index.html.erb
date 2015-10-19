@@ -1,27 +1,31 @@
 <div class="text-center">
-  <h1>epicoverflow</h1>
 
   <!-- <%= link_to 'log in', users_path %> -->
   <!-- <hr> -->
+  <%if @questions.any? %>
+  <% @questions.each do |question|%>
+  <%= question.question %> <br> by <i><%= question.user.name%></i> <br> <small><%= time_ago_in_words(question.created_at) %></small> ago
+    <% if current_user == question.user %>
+      <%= link_to 'delete question', question_path(question),
+                                    :data => {:confirm => "are you sure?",
+                                          :method => "delete"}%>
+    <% end %>
+  <%end%>
+  <%else%>
+  <p>
+    no questions, ask a question!
+  </p>
+  <%end%>
   <% if current_user != nil %>
     <p>
-      Welcome, <%=  current_user.email %>
-      <%if @questions.any? %>
-      <% @questions.each do |question|%>
-      <%= question.question %> by <%= question.user.name%> <%= time_ago_in_words(@question.created_at) %> ago
-      <%end%>
-      <%else%>
-      <p>
-        no questions, ask a question!
-      </p>
-      <%end%>
+      Welcome, <b><%=  current_user.name %></b><br>
+
       <hr>
       <%=render "form"%>
       <hr>
     </p>
     <%= link_to 'log out', log_out_path %>
   <% else  %>
-  <%= link_to 'sign up', users_path %> <br>
-  <%= link_to 'sign in', log_in_path %>
+  <h2>log in or sign up to ask and/or answer questions! </h2>
   <% end  %>
 </div>
