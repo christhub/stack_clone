@@ -1,16 +1,27 @@
 <div class="text-center">
   <h1>epicoverflow</h1>
-  <%if @questions.any? %>
-  <% @questions.each do |question|%>
-  <%= question.question %> by <%= question.user.name%> <%= time_ago_in_words(@question.created_at) %> ago
-  <%end%>
-  <%else%>
-  <p>
-    no questions, ask a question!
-  </p>
-  <%end%>
-<hr>
-  <%=render "form"%>
-<hr>
-  <%= link_to 'sign up', users_path %>
+
+  <!-- <%= link_to 'log in', users_path %> -->
+  <!-- <hr> -->
+  <% if current_user != nil %>
+    <p>
+      Welcome, <%=  current_user.email %>
+      <%if @questions.any? %>
+      <% @questions.each do |question|%>
+      <%= question.question %> by <%= question.user.name%> <%= time_ago_in_words(@question.created_at) %> ago
+      <%end%>
+      <%else%>
+      <p>
+        no questions, ask a question!
+      </p>
+      <%end%>
+      <hr>
+      <%=render "form"%>
+      <hr>
+    </p>
+    <%= link_to 'log out', log_out_path %>
+  <% else  %>
+  <%= link_to 'sign up', users_path %> <br>
+  <%= link_to 'sign in', log_in_path %>
+  <% end  %>
 </div>
