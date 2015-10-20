@@ -7,6 +7,10 @@ class AnswersController < ApplicationController
 
   def create
     @user = current_user
+    if @user == nil
+      flash[:danger] = "Log in to submit an answer"
+      redirect_to :back
+    else
     @question = @user.questions.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
     if @answer.save &&  @answer.update(user_id: @user.id)
@@ -15,19 +19,25 @@ class AnswersController < ApplicationController
       render :new
     end
   end
+end
 
   def update
     @user = current_user
-    @question = @user.questions.find(params[:question_id])
-    @answer = @question.answers.find(params[:id])
-    @vote = Vote.where(user_id: current_user.id, votable_id: @answer.id)
-    if @vote.any?
-      flash[:notice] = "You cannot vote again"
-    # binding.pry
+    if @user == nil
+      flash[:danger] = "Log in to vote"
+      redirect_to :back
     else
-      @answer.votes.create(vote: params[:v][:votes], user_id: current_user.id, votable_id: @answer.id)
+      @question = @user.questions.find(params[:question_id])
+      @answer = @question.answers.find(params[:id])
+      @vote = Vote.where(user_id: current_user.id, votable_id: @answer.id)
+      if @vote.any?
+        flash[:danger] = "You cannot vote again"
+      # binding.pry
+      else
+        @answer.votes.create(vote: params[:v][:votes], user_id: current_user.id, votable_id: @answer.id)
+      end
+      redirect_to question_path(@question)
     end
-    redirect_to question_path(@question)
     # if answer_params[:upvote]
     #   upvote = @answer.upvote
     #   if upvote != nil
