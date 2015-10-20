@@ -12,9 +12,11 @@
 <body>
 <div class="container">
   <!-- Main component for a primary marketing message or call to action -->
+
   <div class="jumbotron">
-    <span class="alert alert-danger"><%= flash[:alert] %></span>
-    <span class="alert alert-success"><%= flash[:notice] %></span>
+    <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
     <%= yield %>
   </div>
 </div> <!-- /container -->

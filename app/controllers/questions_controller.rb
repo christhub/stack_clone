@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
     @question = @user.questions.new(question_params)
     end
     if @user == nil
-      flash[:alert] = "Please log in."
+      flash[:danger] = "Please log in."
       @question = Question.new
       render :new
 
@@ -36,7 +36,7 @@ class QuestionsController < ApplicationController
       answer.destroy
     end
     if @question.destroy
-      flash[:notice] = "Question deleted"
+      flash[:warning] = "Question deleted"
       redirect_to questions_path
     else
       redirect_to questions_path
