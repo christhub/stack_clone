@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   has_many :answer
   has_many :votes, :as => :votable
   # has_one :vote, through: :answer
-  validates_presence_of :username, :email
+  # validates_presence_of :user
+  # validates_presence_of :email
 
   attr_accessor :password
   validates_confirmation_of :password

@@ -4,8 +4,9 @@ class UsersController < ApplicationController
   end
   def create
     @user = User.new(user_params)
+    # binding.pry
     if @user.save
-    # send email
+      UserMailer.signup_confirmation(@user).deliver
       flash[:notice] = "user successfully created"
       redirect_to users_path
     elsif user_params[:password] != user_params[:password_confirmation]
