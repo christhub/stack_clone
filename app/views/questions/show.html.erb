@@ -14,11 +14,23 @@
 <% if @question.answers.any? %>
 <% @question.answers.each do |answer| %>
    <ul>
-     <li><%= link_to "+", question_answer_path(@question, answer, :upvote => true), :method => :patch %> <%= answer.content %> by <%= answer.user.name %> <small><%= time_ago_in_words(answer.created_at) %></small> ago <% if current_user == answer.user %>
+     <li>
+      <%= answer.vote_count %>
+       <%= render 'voting', :object => [@question, answer] %>
+       <!-- <%= answer.upvote %>
+       <%= form_for [@question, answer] do |v| %>
+       <%= v.hidden_field(:upvote, :value => '1') %>
+       <%= button_tag "", type: 'submit', class: "btn btn-default glyphicon glyphicon-chevron-up pull-right" %>     <%= answer.downvote %>
+       <% end %>   <%= form_for [@question, answer] do |v| %>
+       <%= v.hidden_field(:downvote, :value => '1') %>
+       <%= button_tag "", type: 'submit', class: "btn btn-default glyphicon glyphicon-chevron-down pull-right" %>
+       <% end %> -->
+     </li>
+     <!-- <li><%= link_to "+", question_answer_path(@question, answer, :upvote => true), :method => :patch %> <%= answer.content %> by <%= answer.user.name %> <small><%= time_ago_in_words(answer.created_at) %></small> ago <% if current_user == answer.user %>
        <%= link_to 'delete answer', question_answer_path(@question, answer),
        :data => {:confirm => "are you sure?",
          :method => "delete"}%><br>
-         <% end %></li>
+         <% end %></li> -->
    </ul>
 <% end %>
 <% else %>

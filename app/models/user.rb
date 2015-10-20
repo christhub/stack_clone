@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
   has_many :questions
-  has_many :answers
-
+  has_many :answer
+  has_many :votes, :as => :votable
+  # has_one :vote, through: :answer
+  validates_presence_of :username, :email
 
   attr_accessor :password
   validates_confirmation_of :password
@@ -20,6 +22,4 @@ class User < ActiveRecord::Base
       nil
     end
   end
-
-
 end

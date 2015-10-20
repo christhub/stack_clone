@@ -11,11 +11,11 @@
 </head>
 <body>
   <div class="container">
-
+    <span class="alert alert-danger"><%= flash[:alert] %></span>
+    <span class="alert alert-success"><%= flash[:notice] %></span>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <%= flash[:alert] %>
-      <%= flash[:notice] %>
+
       <%= yield %>
 </div>
 
