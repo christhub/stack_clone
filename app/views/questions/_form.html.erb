@@ -1,7 +1,7 @@
 <% if current_user != nil %>
   <%= form_for @question do |f| %>
-  <%= f.label :question %>
-  <%= f.text_field :question %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
   <br>
   <%= f.label :content %>
   <%= f.text_area :content %>
